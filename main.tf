@@ -1,6 +1,6 @@
-resource "aws_security_group" "main" {
-  name        = "${var.name}-${var.env}-sg"
-  description = "${var.name}-${var.env}-sg"
+resource "aws_security_group" "sg" {
+  name        = "${var.name}-alb-${var.env}-sg"
+  description = "${var.name}-alb-${var.env}-sg"
   vpc_id      = var.vpc_id
 
   ingress {
@@ -18,24 +18,24 @@ resource "aws_security_group" "main" {
     cidr_blocks      = ["0.0.0.0/0"]
     ipv6_cidr_blocks = ["::/0"]
   }
-  tags = merge(var.tags, { Name : "${env}-${component}-sg" })
+  tags = merge(var.tags, { Name = "${var.name}-alb-${var.env}-sg" })
 }
 
 resource "aws_lb" "main" {
-  name               = "${var.env}-alb-${var.name}"
+  name               = "${var.name}-alb-${var.env}"
   internal           = var.internal
   load_balancer_type = "application"
-  security_groups    = [aws_security_group.main.id]
+  security_groups    = [aws_security_group.sg.id]
   subnets            = var.subnets
   enable_deletion_protection = true
-  tags =merge(var.tags, { Name : "${env}-alb-${component}" })
+  tags               = merge(var.tags, { Name = "${var.name}-alb-${var.env}" })
 }
 
 
 resource "aws_lb_listener" "main" {
   load_balancer_arn = aws_lb.main.arn
-  protocol          = http
-  port = 80
+  protocol          = "http"
+  port = "80"
   default_action {
     type = "fixed-response"
 
