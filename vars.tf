@@ -5,5 +5,5 @@ variable "subnets" {}
 variable "vpc_id" {}
 variable "allow_alb_cidr" {}
 variable "internal" {}
-variable "app_port" {}
+
 
