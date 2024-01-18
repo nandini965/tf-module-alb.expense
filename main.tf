@@ -5,8 +5,8 @@ resource "aws_security_group" "sg" {
 
   ingress {
     description = "alb"
-    from_port   = var.app_port
-    to_port     = var.app_port
+    from_port   = 80
+    to_port     = 80
     protocol    = "tcp"
     cidr_blocks = var.allow_alb_cidr
   }
