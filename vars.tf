@@ -1,8 +1,7 @@
-variable "name" {}
 variable "tags" {}
 variable "env" {}
+variable "name" {}
+variable "subnets" {}
 variable "vpc_id" {}
-variable "app_port" {}
 variable "allow_alb_cidr" {}
 variable "internal" {}
-variable "subnets" {}
