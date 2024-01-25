@@ -27,7 +27,7 @@ resource "aws_lb" "main" {
   load_balancer_type = "application"
   security_groups    = [aws_security_group.sg.id]
   subnets            = var.subnets
-  enable_deletion_protection = true
+  enable_deletion_protection = false
   tags               = merge(var.tags, { Name = "${var.name}-alb-${var.env}" })
 }
 
